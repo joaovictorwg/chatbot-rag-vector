@@ -1,0 +1,23 @@
+# Git
+.git
+.gitignore
+
+# Docker
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# Ambiente Virtual e dependências locais
+venv/
+__pycache__/
+*.pyc
+
+# Arquivos de ambiente (serão injetados de outra forma)
+.env
+
+# Mídia e estáticos gerados localmente
+media/
+staticfiles/
+
+# Banco de dados local antigo
+db.sqlite3

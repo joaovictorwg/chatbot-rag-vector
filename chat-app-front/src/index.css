@@ -1,0 +1,61 @@
+:root {
+  --main-bg: #ffffff;
+  --main-orange: #ff9800;
+  --main-text: #212121;
+  --main-font: 'Segoe UI', system-ui, Arial, sans-serif;
+}
+
+html, body, #root {
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--main-font);
+  background: var(--main-bg);
+  color: var(--main-text);
+}
+
+a {
+  color: var(--main-orange);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  color: #ffb74d;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--main-orange);
+  font-family: var(--main-font);
+  margin: 0;
+}
+
+button {
+  font-family: var(--main-font);
+  background: var(--main-orange);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #ffb74d;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: #ffe0b2;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--main-orange);
+  border-radius: 8px;
+}

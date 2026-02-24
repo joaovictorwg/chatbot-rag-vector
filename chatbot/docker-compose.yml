@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # Serviço do Banco de Dados com pgvector (sem alterações)
+  db:
+    image: pgvector/pgvector:pg16
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "5434:5432"
+
+  # Serviço do Redis (sem alterações)
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+
+  # Serviço da Aplicação Django (COMANDO CORRIGIDO)
+  web:
+    build: .
+    # CORREÇÃO: Este serviço deve rodar o Daphne para servir a aplicação ASGI.
+    command: daphne -b 0.0.0.0 -p 8000 chatbot.asgi:application
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+
+  # Serviço do Worker do Celery (COMANDO CORRIGIDO)
+  celery_worker:
+    build: .
+    # CORREÇÃO: Este serviço deve rodar o worker do Celery.
+    command: celery -A chatbot worker -l info
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  postgres_data:
