@@ -14,7 +14,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 5. Copiar o Código da Aplicação: Copia o resto do seu código para o container.
+# 5. Copiar a Aplicação
 COPY . .
 
 # A porta que o container vai expor (runserver roda na 8000 por padrão)

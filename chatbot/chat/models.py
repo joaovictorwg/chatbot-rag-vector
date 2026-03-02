@@ -40,8 +40,8 @@ class Message(models.Model):
         Entidade, 
         on_delete=models.CASCADE, 
         related_name='messages',
-        null=True,  # <-- ADICIONE ISSO
-        blank=True  # <-- E ISSO
+        null=True,
+        blank=True
     )
 
     text = models.TextField(blank=True, null=True)

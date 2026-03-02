@@ -3,8 +3,6 @@ import useWebSocket, { ReadyState } from 'react-use-websocket';
 import type { Message } from '../../types/message';
 import { fetchMessages as fetchMessagesApi } from '../../pgapi/messages'; // Renomeamos para evitar conflito
 
-
-// --- ADICIONE ESTES TIPOS ---
 type StatusMessage = {
   type: 'status';
   message: string;
@@ -16,7 +14,6 @@ type ChatMessagePayload = {
 };
 
 type WebSocketMessage = StatusMessage | ChatMessagePayload;
-// ----------------------------
 
 
 export function useChatPage(entidadeId: number | null) {
@@ -25,7 +22,10 @@ export function useChatPage(entidadeId: number | null) {
   const [botStatus, setBotStatus] = useState<string>(''); // Para "Pesquisando...", etc.
   
   // --- Configuração do WebSocket ---
-  const socketUrl = entidadeId ? `ws://127.0.0.1:8000/ws/chat/${entidadeId}/` : null;
+  const wsProtocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+  const apiHost = new URL(import.meta.env.VITE_API_URL || 'http://localhost:8000').hostname;
+  const apiPort = new URL(import.meta.env.VITE_API_URL || 'http://localhost:8000').port || (window.location.protocol === 'https:' ? '443' : '80');
+  const socketUrl = entidadeId ? `${wsProtocol}://${apiHost}:${apiPort}/ws/chat/${entidadeId}/` : null;
   
   const { sendMessage, lastJsonMessage, readyState } = useWebSocket(socketUrl, {
     shouldReconnect: (closeEvent) => {

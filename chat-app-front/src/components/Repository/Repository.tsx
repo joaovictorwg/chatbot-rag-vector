@@ -50,14 +50,17 @@ export function DocumentUploader({ entidadeId }: DocumentUploaderProps) {
 
       <S.List>
         <S.ListTitle>Documentos na Base de Conhecimento:</S.ListTitle>
-        {documentos.map((doc) => (
-          <S.ListItem key={doc.id}>
-            <S.Link href={`http://127.0.0.1:8000${doc.arquivo}`} target="_blank">
-              {doc.arquivo.split('/').pop()}
-            </S.Link>
-            {getStatusBadge(doc.status)}
-          </S.ListItem>
-        ))}
+        {documentos.map((doc) => {
+          const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+          return (
+            <S.ListItem key={doc.id}>
+              <S.Link href={`${apiUrl}${doc.arquivo}`} target="_blank">
+                {doc.arquivo.split('/').pop()}
+              </S.Link>
+              {getStatusBadge(doc.status)}
+            </S.ListItem>
+          );
+        })}
         {documentos.length === 0 && <S.Text>Nenhum documento encontrado.</S.Text>}
       </S.List>
     </S.Container>

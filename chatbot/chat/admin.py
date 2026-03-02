@@ -1,7 +1,6 @@
 # chat/admin.py
 
 from django.contrib import admin
-# Importe o novo modelo Documento aqui
 from .models import Entidade, Message, Documento
 
 class EntidadeAdmin(admin.ModelAdmin):
@@ -13,8 +12,6 @@ class MessageAdmin(admin.ModelAdmin):
     list_filter = ('entidade', 'sender')
     search_fields = ('text',)
 
-# --- ADICIONE ESTA PARTE ---
-# Classe para melhorar a visualização dos Documentos no Admin
 class DocumentoAdmin(admin.ModelAdmin):
     # Campos que aparecerão na lista
     list_display = ('entidade', 'arquivo', 'status', 'uploaded_at')

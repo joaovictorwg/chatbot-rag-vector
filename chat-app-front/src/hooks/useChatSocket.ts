@@ -10,7 +10,10 @@ export function useChatSocket(entidadeId: number | null) {
   const [botStatus, setBotStatus] = useState<string>('');
 
   // Constrói a URL do WebSocket. Se não houver entidadeId, a URL é nula e a conexão não é feita.
-  const socketUrl = entidadeId ? `ws://127.0.0.1:8000/ws/chat/${entidadeId}/` : null;
+  const wsProtocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+  const apiHost = new URL(import.meta.env.VITE_API_URL || 'http://localhost:8000').hostname;
+  const apiPort = new URL(import.meta.env.VITE_API_URL || 'http://localhost:8000').port || (window.location.protocol === 'https:' ? '443' : '80');
+  const socketUrl = entidadeId ? `${wsProtocol}://${apiHost}:${apiPort}/ws/chat/${entidadeId}/` : null;
 
   const { sendMessage, lastJsonMessage, readyState } = useWebSocket(socketUrl, {
     shouldReconnect: (closeEvent) => true, // Tenta reconectar em caso de queda

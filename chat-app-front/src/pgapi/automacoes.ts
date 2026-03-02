@@ -1,10 +1,8 @@
 // src/services/api.ts
 import axios from 'axios';
 import type { Agente, Automacao, Execucao } from '../types/automacoes';
-// Importe os novos tipos que você criará
- 
 
-const API_URL = 'http://127.0.0.1:8000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
 
 export async function fetchAutomacoes(entidadeId: number): Promise<Automacao[]> {
   const response = await axios.get<Automacao[]>(`${API_URL}/entidades/${entidadeId}/automacoes/`);

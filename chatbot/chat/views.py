@@ -8,7 +8,7 @@ from rest_framework.generics import ListAPIView
 from .models import Message, Entidade, Documento
 from .serializers import MessageSerializer, EntidadeSerializer, DocumentoSerializer
 from .tasks import processar_documento_task
-from .utils import setup_rag_chain_for_entity # <--- IMPORTAMOS A LÓGICA COMPARTILHADA
+from .utils import setup_rag_chain_for_entity
 
 
 class EntidadeListView(ListAPIView):

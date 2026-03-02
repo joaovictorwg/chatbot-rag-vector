@@ -8,6 +8,5 @@ urlpatterns = [
     path('api/', include('chat.urls')),
 ]
 
-# Adicione esta linha para servir arquivos de mídia em modo de desenvolvimento
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

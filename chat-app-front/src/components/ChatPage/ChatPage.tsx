@@ -12,7 +12,6 @@ interface ChatPageProps {
 function ChatPage({ entidadeId }: ChatPageProps) {
   const { messages, botStatus, connectionStatus, sendChatMessage } = useChatPage(entidadeId);
 
-  // ... (useRef, useEffect de scroll, getImageUrl, handleSendMessage não mudam) ...
   const messageListRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (messageListRef.current) {
@@ -21,7 +20,8 @@ function ChatPage({ entidadeId }: ChatPageProps) {
   }, [messages, botStatus]);
 
   const getImageUrl = (imagePath: string | null) => {
-    if (imagePath) return `http://127.0.0.1:8000${imagePath}`;
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+    if (imagePath) return `${apiUrl}${imagePath}`;
     return '';
   };
 
